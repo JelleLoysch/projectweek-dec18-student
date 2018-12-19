@@ -1,31 +1,32 @@
-function onMouseDown(count, args) {
-	return count + 1;
+function onMouseDown(count, args){
+	return count +1
 }
 
-function onMouseDown2(state, args) {
-	return { count: state.count + 1};
+function onMouseDown2(state, args){
+	return {count: state.count+1}
 }
-
 
 function counter3() {
-	function onMouseDown(state, args) {
-	return { count: state.count + 1};
-	}
-    return { controller: { onMouseDown } };
+	function onMouseDown(state, args){
+	return {count: state.count+1} };
+	
+	return {controller:{onMouseDown}};
 }
 
-function counter4() {
-	function onMouseDown(state, args) {
-	return { count: state.count + 1};
-	}
-		function onKeyDown ( state , args) {
-		return { count: 0 };
-		}
-    		return { controller: { onMouseDown, onKeyDown } };
-}	
+function counter4(){
+	function onMouseDown(state, args){
+	return {count: state.count+1} };
+	
+	function onKeyDown(state,args){
+	return {count:0} }; 
+	
+	return {controller: {onMouseDown, onKeyDown}};
+}
 
 function counter5() {
 	function onMouseDown(state, args) { 
+			
+		
 			if(args.shift) {
 				if(state.count == 0) {
 					return {count:0};
@@ -35,95 +36,113 @@ function counter5() {
 			return  {count: state.count +1};
 	 }
 	 function onKeyDown(state,args) {
+
 	 	if(args.key == "ArrowUp") {
+	 		return {count: state.count +1};
+	 	}
+		if(args.key == " ") {
 	 		return {count: state.count +1};
 	 	}
 	 	if (args.key == "ArrowDown") {
 	 		if(state.count == 0) return {count:0};
 	 		return {count: state.count -1};
+
 	 	}
+	 	
 	 	if(args.key == 0) {
 	 		return {count: 0};
 	 	}
+	 	
 	 		return {count: state.count};
 	 }
     return {controller: {onMouseDown, onKeyDown} };
 }
 
 function counter6() {
-	function onMouseDown(state, args) { 
-			if(args.shift) {
-				if(state.count == 0) {
-					return {count:0};
-				}
-				return {count: state.count-1};
-			}
+	function onMouseDown(state, args) { 	
+	if(args.shift) {
+		if(state.count == 0) {
+			return {count:0};
+		}
+			return {count: state.count-1};
+		}
 			return  {count: state.count +1};
 	 }
 	 function onKeyDown(state,args) {
-	 	if(args.key == "ArrowUp" || args.key == " ") {
+
+	 	if(args.key == "ArrowUp") {
+	 		return {count: state.count +1};
+	 	}
+		if(args.key == " ") {
 	 		return {count: state.count +1};
 	 	}
 	 	if (args.key == "ArrowDown") {
 	 		if(state.count == 0) return {count:0};
 	 		return {count: state.count -1};
+
 	 	}
+	 	
 	 	if(args.key == 0) {
 	 		return {count: 0};
 	 	}
+	 	
 	 		return {count: state.count};
 	 }
-	 function reset(state) {
-	 	return {count:0};
-	 }
+	 
+	function increment(state) { 
+		return {count: state.count+1};
+	}
 
-	 function increment(state){
-	 	return {count: state.count +1};
-	 }
+    function decrement(state) { 
+		if (state.count == 0)
+			return {count: 0}
+		return {count: state.count -1};
+	}
 
-	 function decrement(state){
-	if(state.count == 0) return {count:0};
-	 		return {count: state.count -1};
-	 }
+    function reset(state) { 
+		return {count:0};
+	}	
 	
-    let controller = {onMouseDown, onKeyDown};
-    let model = {reset, increment, decrement};
-    return { controller, model};
+    const controller = { onMouseDown, onKeyDown };
+    const model = { increment, decrement, reset };
+    return { controller, model };
 }
 
-function counter7(){
-function onMouseDown(state, args) { 
+function counter7() {
+	function onMouseDown(state, args) { 
 			
-    if(args.shift){
-        if(args.ctrl){
-            if(state.count <5){
-                return {count: 0};
-            }
-            return {count: state.count-5};
-            
-        }
-        else{
-            if(state.count <=1){
-                return {count: 0};
-            }
-            return {count: state.count-1};
-            
-        }
-    }else{
-        if(args.ctrl){
-            return {count: state.count+5};
-        }
-        else{
-            return {count: state.count+1};
-        }
-        
-    }
-    
-}
-     
-   
-    
-	function onKeyDown(state,args) {
+		
+			if(args.shift) {
+				if(args.ctrl) {
+					if(state.count < 5) {
+						return {count: 0};
+					}
+					return {count: state.count -5};
+
+				}
+				else {
+						if(state.count <= 1) {
+							return {count: 0};
+							
+					}
+						
+					
+					return {count: state.count -1};
+					}
+				}
+
+
+					else {
+						if(args.ctrl) {
+							return {count: state.count +5};
+						}
+						return {count: state.count +1};
+					}
+
+				}
+
+
+	 function onKeyDown(state,args) {
 
 	 	if((args.key == "ArrowUp" && args.ctrl) ||(args.key==" " && args.ctrl))  {
             if(state.count < 0){
@@ -152,91 +171,103 @@ function onMouseDown(state, args) {
 	 	
 	 		return {count: state.count};
 	 }
-    
-    function reset(state){
-        return {count:0};
-    }
-    
-    function increment(state){
-        return {count: state.count+1};
-    }
-    
-    function decrement(state){
-        if(state.count==0){
-            return {count: 0};
-        }
-        return {count: state.count-1};
-    }
-    
-    function add(state, amount){
-       if(state.count+ amount <0){
-           return {count: 0};
-       }
-        return{count:state.count+amount};
-    }
-        
-    
-    let controller = {onMouseDown, onKeyDown} ;
-    let model = {reset, increment, decrement, add};
-    return{controller, model};
-    
+
+
+	 function reset(state) {
+	 	return {count: 0};
+
+	 }
+	 
+	 function increment(state) {
+	 	return {count: state.count +1};
+	 }
+
+	 function decrement(state) {
+	 		
+	 		if(state.count == 0 ) 
+					return {count:0}; 
+					return {count: state.count -1};
+
+
+	 }
+
+	 function add(state,amount) {
+	 	if(state.count + amount < 0 ) return {count:0}; 
+			return {count: state.count + amount};
+	 }
+
+    const controller = { onMouseDown, onKeyDown };
+    const model = { increment, decrement, reset, add };
+    return { controller, model };
 }
 
-function chronometer(){
-	function onTimerTick(state, dt) {
+
+
+function chronometer() {
+	
+	
+function onTimerTick(state, dt){
 	return {elapsedTime: dt + state.elapsedTime};
-	}
-	function timePassed(state, dt) {
-	return {elapsedTime: dt + state.elapsedTime};
-	}
-	let controller ={onTimerTick} ;
-	let model = {timePassed} ;
-	return {controller, model} ;
 }
+function timePassed (state, dt) {
+	return {elapsedTime: dt + state.elapsedTime};
+}
+	
+	const controller = {onTimerTick};
+	const model = {timePassed};
+	return {controller, model};
+	
+	
+	
+}
+
 
 function chronometer2(){
-	function timePassed(state, dt){
-		if (state.active == false) {
-			return {elapsedTime: state.elapsedTime, active: state.active}
-		}
 
-		else{
-			return {elapsedTime: state.elapsedTime + dt, active: state.active}
-		}
-	}
+function toggle(state){
+  if(state.active === false){
+    return {active:true};
+  }
+  else if(state.active === true){
+    return {active:false};
+  }
+  else{
+    return {active:true};
+  }
+}
 
-	function toggle(state){
-		if (state.active == true){
-			return {elapsedTime: state.elapsedTime, active: false}
-		}
-		
-		else {
-			return {elapsedTime: state.elapsedTime, active: true}
-		}
-	}
+function onKeyDown(state, args, dt)
+{
+  if(args.key == " "){
+    return {elapsedTime: state.elapsedTime, active:!state.active};
+  }
+else if(args.key == "0")
+{
+  return reset(state);
+}
+}
 
-	function reset(state){
-		return {elapsedTime: 0, active: state.active}
-	}
+function reset(state) {
+    return {elapsedTime: 0, active:state.active};
+ }
 
-	function onTimerTick(state, dt){
-		return timePassed(state, dt);
-	}
+function timePassed(state, dt){
+  if(state.active === true){
+    return {elapsedTime:dt + state.elapsedTime, active:state.active};
+  }
+  else if(state.active === false){
+    return {elapsedTime: state.elapsedTime, active:state.active};
+  }
 
-	function onKeyDown(state, args){
-		if (args.key == " "){
-			return toggle(state);
-		}
+   }
 
-		else if (args.key == "0"){
-			return reset(state);
-		}
+  function onTimerTick(state, dt){
+    return timePassed(state, dt);
+  }
 
-
-	}
-	const controller = { onTimerTick, onKeyDown };
-	const model = { timePassed, toggle, reset };
-	return {controller, model};
+  const controller = { onTimerTick, onKeyDown };
+  const model = { timePassed, toggle, reset};
+  return { model, controller };
 }
 
 function circle(){
@@ -339,4 +370,7 @@ function drawing(){
     const controller = {onMouseMove, onMouseDown, onMouseUp};
     return {view, model, controller};
 }
+
+
+
 
